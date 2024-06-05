@@ -76,3 +76,4 @@ class RealTimePlot(QtWidgets.QWidget):
         self.running = False
         self.thread.join()
         event.accept()
+# Développé avec ❤️ par : www.noasecond.com.
