@@ -6,6 +6,26 @@ import threading
 
 
 class RealTimePlot(QtWidgets.QWidget):
+    """
+    A class that represents a real-time plot widget.
+
+    Args:
+        parent (QWidget): The parent widget.
+        title (str): The title of the plot.
+        num_of_lines (int): The number of lines to plot.
+        legend_labels (list): The legend labels for each line.
+
+    Attributes:
+        title (str): The title of the plot.
+        num_of_lines (int): The number of lines to plot.
+        legend_labels (list): The legend labels for each line.
+        data (list): A list of lists to store the data points for each line.
+        lock (threading.Lock): A lock to synchronize access to the data.
+        running (bool): A flag indicating whether the plot is running.
+        thread (threading.Thread): The thread used to update the plot.
+
+    """
+
     def __init__(self, parent, title, num_of_lines, legend_labels):
         super().__init__(parent)
         self.title = title
@@ -21,6 +41,9 @@ class RealTimePlot(QtWidgets.QWidget):
         self.thread.start()
 
     def initUI(self):
+        """
+        Initializes the user interface of the plot widget.
+        """
         layout = QtWidgets.QVBoxLayout()
         self.setLayout(layout)
 
@@ -56,6 +79,13 @@ class RealTimePlot(QtWidgets.QWidget):
         layout.addWidget(self.graphWidget)
         
     def add_datas(self, datas):
+        """
+        Adds new data points to the plot.
+
+        Args:
+            datas (list): A list of data points for each line.
+
+        """
         with self.lock:
             if len(datas) != self.num_of_lines:
                 print("Number of data points does not match the number of lines")
@@ -64,6 +94,9 @@ class RealTimePlot(QtWidgets.QWidget):
                 self.data[i].append(data_point)
 
     def update_plot(self):
+        """
+        Updates the plot with the latest data points.
+        """
         while self.running:
             with self.lock:
                 for i, line in enumerate(self.lines):
@@ -73,6 +106,13 @@ class RealTimePlot(QtWidgets.QWidget):
             time.sleep(0.01)
 
     def closeEvent(self, event):
+        """
+        Handles the close event of the plot widget.
+
+        Args:
+            event (QCloseEvent): The close event.
+
+        """
         self.running = False
         self.thread.join()
         event.accept()

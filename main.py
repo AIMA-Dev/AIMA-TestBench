@@ -13,6 +13,15 @@ from picoS2000aRealtimeStreaming import open_pico, get_value
 
 
 def update_data(plot):
+    """
+    Updates the data for the given plot.
+
+    Args:
+        plot: The plot object to update.
+
+    Returns:
+        None
+    """
     settings = Settings()
     while plot.running:
         plot.add_datas([get_value('PS2000A_CHANNEL_A'), get_value(
@@ -23,6 +32,18 @@ def update_data(plot):
 
 
 def plotting(parent, title, num_of_lines, legend_labels):
+    """
+    Create a real-time plotting widget and start a separate thread to update the data.
+
+    Args:
+        parent: The parent widget.
+        title: The title of the plot.
+        num_of_lines: The number of lines to be plotted.
+        legend_labels: The labels for the legend.
+
+    Returns:
+        None
+    """
     plot = realTimePlotting.RealTimePlot(
         parent, title, num_of_lines, legend_labels)
     data_thread = threading.Thread(target=update_data, args=(plot,))
@@ -33,6 +54,17 @@ def plotting(parent, title, num_of_lines, legend_labels):
 
 
 def loadUiWidget(uifilename, parent=None):
+    """
+    Load a UI file and return the corresponding widget.
+
+    Parameters:
+    - uifilename (str): The path to the UI file.
+    - parent (QWidget): The parent widget (default: None).
+
+    Returns:
+    - QWidget: The loaded widget.
+
+    """
     loader = QtUiTools.QUiLoader()
     uifile = QtCore.QFile(uifilename)
     uifile.open(QtCore.QFile.ReadOnly)
@@ -42,6 +74,22 @@ def loadUiWidget(uifilename, parent=None):
 
 
 def init_settings_tab():
+    """
+    Initializes the settings tab by setting up various UI elements and their corresponding actions.
+
+    This function performs the following tasks:
+    - Sets the log path and displays it in the list widget.
+    - Sets the log frequency and connects it to the settings file.
+    - Sets the file size limit and connects it to the settings file.
+    - Sets the log on/off button and connects it to the settings file.
+    - Refreshes the list of connected devices and displays them in the list widget.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
     settings = Settings()
     # Log Path
     if not settings.does_setting_exist('logPath'):
@@ -96,6 +144,19 @@ def init_settings_tab():
     # Connected devices
 
     def refresh_ports():
+        """
+        Refreshes the list of ports in the UI.
+
+        This function clears the existing list of ports in the UI, retrieves the updated list of ports,
+        and populates the UI with the new list of ports. If no ports are detected, it displays a message
+        indicating that no device is detected.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
         listWidget_PortList = main_window.findChild(
             QtWidgets.QListView, "listWidget_PortList")
         listWidget_PortList.clear()

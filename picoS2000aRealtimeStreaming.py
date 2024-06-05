@@ -12,6 +12,14 @@ maxADC = ctypes.c_int16()
 
 
 def open_pico():
+    """
+    Opens the PicoScope device and sets up the channels.
+
+    This function opens the PicoScope device, sets up channels A and B, and retrieves the maximum ADC value.
+
+    Returns:
+        None
+    """
     global chandle, channel_range, maxADC
     status = {}
     status["openunit"] = ps.ps2000aOpenUnit(ctypes.byref(chandle), None)
@@ -37,6 +45,19 @@ def open_pico():
 
 
 def get_value(channel):
+    """
+    Get the voltage value from the specified channel.
+
+    Args:
+        channel (int): The channel number.
+
+    Returns:
+        float: The voltage value.
+
+    Raises:
+        AssertionError: If there is an error in setting the data buffers or running streaming.
+
+    """
     global chandle, channel_range, maxADC
     buffer = np.zeros(shape=1, dtype=np.int16)
     status = {}
