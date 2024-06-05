@@ -51,6 +51,7 @@ def init_settings_tab():
     else:
         spinBox_logFrequency.setValue(int(settings.read_from_settings_file('logFrequency')))
     spinBox_logFrequency.valueChanged.connect(lambda value: settings.write_to_settings_file('logFrequency', value))
+    spinBox_logFrequency.valueChanged.connect(lambda: log_action("Log frequency is set to " + str(spinBox_logFrequency.value()) + " seconds"))
     # File Size Limit
     spinBox_fileSizeLimit = main_window.findChild(QtWidgets.QSpinBox, "spinBox_fileSizeLimit")
     if not settings.does_setting_exist('fileSizeLimit'):
@@ -58,6 +59,7 @@ def init_settings_tab():
     else:
         spinBox_fileSizeLimit.setValue(int(settings.read_from_settings_file('fileSizeLimit')))
     spinBox_fileSizeLimit.valueChanged.connect(lambda value: settings.write_to_settings_file('fileSizeLimit', value))
+    spinBox_fileSizeLimit.valueChanged.connect(lambda: log_action("File size limit is set to " + str(spinBox_fileSizeLimit.value()) + " megabytes"))
     # Log On/Off
     pushButton_LogOnOff = main_window.findChild(QtWidgets.QPushButton, "pushButton_LogOnOff")
     if not settings.does_setting_exist('logOnOff'):
@@ -67,6 +69,7 @@ def init_settings_tab():
     pushButton_LogOnOff.setText("On") if settings.read_from_settings_file('logOnOff') == 'True' else pushButton_LogOnOff.setText("Off")
     pushButton_LogOnOff.clicked.connect(lambda: settings.write_to_settings_file('logOnOff', pushButton_LogOnOff.isChecked()))
     pushButton_LogOnOff.clicked.connect(lambda: pushButton_LogOnOff.setText("On") if settings.read_from_settings_file('logOnOff') == 'True' else pushButton_LogOnOff.setText("Off"))
+    pushButton_LogOnOff.clicked.connect(lambda: log_action("Logging is turned on" if settings.read_from_settings_file('logOnOff') == 'True' else "Logging is turned off"))
     # Connected devices
     def refresh_ports():
         listWidget_PortList = main_window.findChild(QtWidgets.QListView, "listWidget_PortList")
