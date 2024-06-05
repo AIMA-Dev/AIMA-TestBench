@@ -6,7 +6,10 @@ GUI.ui
 GUI_ui.py
 LICENSE
 README.md
+affected_files.txt
+after_files.txt
 assets/icon.ico
+before_files.txt
 devicesLink.py
 logger.py
 main.py
