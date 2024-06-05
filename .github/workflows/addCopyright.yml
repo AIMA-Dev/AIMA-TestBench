@@ -35,9 +35,3 @@ jobs:
         git commit -m ":construction_worker: Add copyright to files" || echo "No changes to commit"
         git pull --rebase
         git push origin main
-
-    - name: Print affected files
-      if: success()
-      run: |
-        echo "The following files were affected by the change:"
-        cat affected_files.txt
