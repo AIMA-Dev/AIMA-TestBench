@@ -24,13 +24,6 @@ jobs:
       run: |
         python utils/addCopyright.py
 
-    - name: List affected files
-      run: |
-        git ls-files > after_files.txt
-        git diff --name-only > affected_files.txt
-        echo "Changed files:"
-        cat affected_files.txt
-
     - name: Configure Git
       run: |
         git config --local user.email "action@github.com"
