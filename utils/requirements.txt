@@ -1,0 +1,6 @@
+datetime
+PySide6
+numpy
+pico_sdk
+picosdk
+pyqtgraph
