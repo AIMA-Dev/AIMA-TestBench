@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QFrame, QLCDNumber,
-    QLabel, QListWidget, QListWidgetItem, QMainWindow,
-    QPushButton, QSizePolicy, QSpinBox, QStatusBar,
-    QTabWidget, QWidget)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QDoubleSpinBox, QFrame,
+    QLCDNumber, QLabel, QListWidget, QListWidgetItem,
+    QMainWindow, QPushButton, QSizePolicy, QSpinBox,
+    QStatusBar, QTabWidget, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -210,15 +210,14 @@ class Ui_MainWindow(object):
         self.label_56 = QLabel(self.numInput_14)
         self.label_56.setObjectName(u"label_56")
         self.label_56.setGeometry(QRect(0, 0, 149, 16))
-        self.spinBox_logFrequency = QSpinBox(self.numInput_14)
-        self.spinBox_logFrequency.setObjectName(u"spinBox_logFrequency")
-        self.spinBox_logFrequency.setGeometry(QRect(0, 20, 121, 41))
-        self.spinBox_logFrequency.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.UpDownArrows)
-        self.spinBox_logFrequency.setMinimum(1)
-        self.spinBox_logFrequency.setValue(1)
         self.label_57 = QLabel(self.numInput_14)
         self.label_57.setObjectName(u"label_57")
         self.label_57.setGeometry(QRect(130, 40, 19, 16))
+        self.spinBox_logFrequency = QDoubleSpinBox(self.numInput_14)
+        self.spinBox_logFrequency.setObjectName(u"spinBox_logFrequency")
+        self.spinBox_logFrequency.setGeometry(QRect(0, 20, 121, 41))
+        self.spinBox_logFrequency.setMinimum(0.050000000000000)
+        self.spinBox_logFrequency.setSingleStep(0.050000000000000)
         self.numInput_13 = QWidget(self.frame)
         self.numInput_13.setObjectName(u"numInput_13")
         self.numInput_13.setGeometry(QRect(10, 140, 148, 61))

@@ -28,7 +28,8 @@ def update_data(plot):
             'PS2000A_CHANNEL_B'), get_value('PS2000A_CHANNEL_C')])
         log_values([datetime.datetime.now().strftime("%H:%M:%S"), get_value('PS2000A_CHANNEL_A'), get_value(
             'PS2000A_CHANNEL_B'), get_value('PS2000A_CHANNEL_C')], int(settings.read_from_settings_file('fileSizeLimit')))
-        time.sleep(1)
+        freq = float(settings.read_from_settings_file('logFrequency'))
+        time.sleep(freq)
 
 
 def plotting(parent, title, num_of_lines, legend_labels):
@@ -99,18 +100,18 @@ def init_settings_tab():
     listWidget_logPath.addItem(
         os.getcwd()+settings.read_from_settings_file('logPath'))
     # Log Frequency
-    spinBox_logFrequency = main_window.findChild(
-        QtWidgets.QSpinBox, "spinBox_logFrequency")
+    doubleSpinBox_logFrequency = main_window.findChild(
+        QtWidgets.QDoubleSpinBox, "spinBox_logFrequency")
     if not settings.does_setting_exist('logFrequency'):
         settings.write_to_settings_file(
-            'logFrequency', spinBox_logFrequency.value())
+            'logFrequency', doubleSpinBox_logFrequency.value())
     else:
-        spinBox_logFrequency.setValue(
-            int(settings.read_from_settings_file('logFrequency')))
-    spinBox_logFrequency.valueChanged.connect(
+        doubleSpinBox_logFrequency.setValue(
+            float(settings.read_from_settings_file('logFrequency')))
+    doubleSpinBox_logFrequency.valueChanged.connect(
         lambda value: settings.write_to_settings_file('logFrequency', value))
-    spinBox_logFrequency.valueChanged.connect(lambda: log_action(
-        "Log frequency is set to " + str(spinBox_logFrequency.value()) + " seconds"))
+    doubleSpinBox_logFrequency.valueChanged.connect(lambda: log_action(
+        "Log frequency is set to " + str(doubleSpinBox_logFrequency.value()) + " seconds"))
     # File Size Limit
     spinBox_fileSizeLimit = main_window.findChild(
         QtWidgets.QSpinBox, "spinBox_fileSizeLimit")
@@ -198,15 +199,15 @@ if __name__ == '__main__':
     # Log
     log_action("Application started")
 
+    # Settings
+    init_settings_tab()
+    
     # Plotting
     open_pico()
     listWidget_testBench = main_window.findChild(
         QtWidgets.QWidget, "listWidget_testBench")
     plotting(listWidget_testBench, "Titre", 3, [
              "Channel A", "Channel B", "Channel C"])
-
-    # Settings
-    init_settings_tab()
 
     main_window.show()
     sys.exit(app.exec())
