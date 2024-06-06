@@ -6,7 +6,7 @@ Industrial application to control and monitor the test bench particle accelerato
 
 Uses [AutoCopyright-v1.0](https://github.com/YoruKiwi/AutoCopyright)
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/YoruKiwi/AIMA-TestBench/codeql.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/YoruKiwi/AIMA-TestBench/codeql.yml?label=CI-Security)
 
 ## Setup
 
