@@ -203,12 +203,13 @@ if __name__ == '__main__':
     init_settings_tab()
     
     # Plotting
-    open_pico()
-    listWidget_testBench = main_window.findChild(
-        QtWidgets.QWidget, "listWidget_testBench")
-    plotting(listWidget_testBench, "Titre", 3, [
-             "Channel A", "Channel B", "Channel C"])
-
+    try:
+        open_pico()
+        listWidget_testBench = main_window.findChild(QtWidgets.QWidget, "listWidget_testBench")
+        plotting(listWidget_testBench, "Titre", 3, ["Channel A", "Channel B", "Channel C"])
+    except Exception as e:
+        print("No pico device detected : "+str(e))
+        
     main_window.show()
     sys.exit(app.exec())
 # Développé avec ❤️ par : www.noasecond.com.
