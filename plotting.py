@@ -3,6 +3,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import QThread, Signal
 import pyqtgraph as pg
 
+
 class DataFetcher(QThread):
     data_fetched = Signal(list)
 
@@ -39,7 +40,6 @@ class DataFetcher(QThread):
             try:
                 values = [pico.get_value(channel) for channel in self.channels]
                 self.data_fetched.emit(values)
-                self.msleep(25)  # Sleep for 25ms
             except Exception as e:
                 print(f"Error fetching data: {e}")
                 self.running = False
@@ -51,6 +51,7 @@ class DataFetcher(QThread):
         Sets the `running` attribute to False, indicating that the program should stop running.
         """
         self.running = False
+
 
 class PicoPlotter(QtWidgets.QMainWindow):
     def __init__(self, channels, title, parent):
@@ -91,7 +92,15 @@ class PicoPlotter(QtWidgets.QMainWindow):
         self.plotWidget = pg.PlotWidget(title=self.title, parent=parent)
         layout.addWidget(self.plotWidget)
 
-        self.curves = [self.plotWidget.plot(pen=pg.mkPen(color)) for color in ['r', 'g', 'b', 'y', 'm', 'c']]
+        self.plotWidget.addLegend()  # Ajouter une légende
+
+        self.curves = []
+        colors = ['r', 'g', 'b', 'y', 'm', 'c']
+
+        for i, channel in enumerate(self.channels):
+            curve = self.plotWidget.plot(pen=pg.mkPen(
+                colors[i]), name=f"{channel}")
+            self.curves.append(curve)
 
     def update_plot(self, values):
         """
