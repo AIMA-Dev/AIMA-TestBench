@@ -12,48 +12,6 @@ from devicesLink import list_all_devices
 from logger import log_action, log_values
 
 
-def update_data(plot):
-    """
-    Updates the data for the given plot.
-
-    Args:
-        plot: The plot object to update.
-
-    Returns:
-        None
-    """
-    settings = Settings()
-    while plot.running:
-        plot.add_datas([pico.get_value('PS2000A_CHANNEL_A'), pico.get_value(
-            'PS2000A_CHANNEL_B'), pico.get_value('PS2000A_CHANNEL_C')])
-        log_values([datetime.datetime.now().strftime("%H:%M:%S"), pico.get_value('PS2000A_CHANNEL_A'), pico.get_value(
-            'PS2000A_CHANNEL_B'), pico.get_value('PS2000A_CHANNEL_C')], int(settings.read_from_settings_file('fileSizeLimit')))
-        freq = float(settings.read_from_settings_file('logFrequency'))
-        time.sleep(freq)
-
-
-def plotting(parent, title, num_of_lines, legend_labels):
-    """
-    Create a real-time plotting widget and start a separate thread to update the data.
-
-    Args:
-        parent: The parent widget.
-        title: The title of the plot.
-        num_of_lines: The number of lines to be plotted.
-        legend_labels: The labels for the legend.
-
-    Returns:
-        None
-    """
-    plot = PicoPlotter.RealTimePlot(
-        parent, title, num_of_lines, legend_labels)
-    data_thread = threading.Thread(target=update_data, args=(plot,))
-    data_thread.start()
-    layout = QtWidgets.QVBoxLayout()
-    listWidget_testBench.setLayout(layout)
-    layout.addWidget(plot)
-
-
 def loadUiWidget(uifilename, parent=None):
     """
     Load a UI file and return the corresponding widget.
