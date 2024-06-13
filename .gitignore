@@ -6,3 +6,6 @@ __pycache__/
 
 # Settings
 settings.conf
+
+# VSCode
+.vscode/
