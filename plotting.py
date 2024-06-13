@@ -63,3 +63,4 @@ class PicoPlotter(QtWidgets.QMainWindow):
         except Exception as e:
             print(f"Error fetching data: {e}")
             self.timer.stop()
+# Développé avec ❤️ par : www.noasecond.com.
