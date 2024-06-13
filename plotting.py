@@ -92,14 +92,18 @@ class PicoPlotter(QtWidgets.QMainWindow):
         self.plotWidget = pg.PlotWidget(title=self.title, parent=parent)
         layout.addWidget(self.plotWidget)
 
-        self.plotWidget.addLegend()  # Ajouter une légende
-
-        self.curves = []
+        self.plotWidget.showGrid(x=True, y=True)
+        self.plotWidget.addLegend()
+        self.plotWidget.setLabel('left', 'Tension (mV)')
+        self.plotWidget.setLabel('bottom', 'Temps (tick)')
+        self.plotWidget.setBackground('w')
+        lineThickness = 2
         colors = ['r', 'g', 'b', 'y', 'm', 'c']
+        self.curves = []
 
         for i, channel in enumerate(self.channels):
             curve = self.plotWidget.plot(pen=pg.mkPen(
-                colors[i]), name=f"{channel}")
+                colors[i], width=lineThickness), name=f"{channel}")
             self.curves.append(curve)
 
     def update_plot(self, values):
