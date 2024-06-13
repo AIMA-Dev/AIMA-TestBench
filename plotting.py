@@ -92,10 +92,12 @@ class PicoPlotter(QtWidgets.QMainWindow):
         self.plotWidget = pg.PlotWidget(title=self.title, parent=parent)
         layout.addWidget(self.plotWidget)
 
+        self.plotWidget.setTitle(self.title, color="k", size="18pt")
         self.plotWidget.showGrid(x=True, y=True)
         self.plotWidget.addLegend()
-        self.plotWidget.setLabel('left', 'Tension (mV)')
-        self.plotWidget.setLabel('bottom', 'Temps (tick)')
+        styles = {"color": "black", "font-size": "18px"}
+        self.plotWidget.setLabel('left', 'Tension (mV)', **styles)
+        self.plotWidget.setLabel('bottom', 'Temps (tick)', **styles)
         self.plotWidget.setBackground('w')
         lineThickness = 2
         colors = ['r', 'g', 'b', 'y', 'm', 'c']
