@@ -4,12 +4,12 @@ import threading
 import sys
 import os
 import ctypes
-import realTimePlotting
+from plotting import PicoPlotter
+import picoS2000aRealtimeStreaming as pico
 from settings import Settings
 from PySide6 import QtWidgets, QtCore, QtUiTools, QtGui
 from devicesLink import list_all_devices
 from logger import log_action, log_values
-from picoS2000aRealtimeStreaming import open_pico, get_value
 
 
 def update_data(plot):
@@ -24,10 +24,10 @@ def update_data(plot):
     """
     settings = Settings()
     while plot.running:
-        plot.add_datas([get_value('PS2000A_CHANNEL_A'), get_value(
-            'PS2000A_CHANNEL_B'), get_value('PS2000A_CHANNEL_C')])
-        log_values([datetime.datetime.now().strftime("%H:%M:%S"), get_value('PS2000A_CHANNEL_A'), get_value(
-            'PS2000A_CHANNEL_B'), get_value('PS2000A_CHANNEL_C')], int(settings.read_from_settings_file('fileSizeLimit')))
+        plot.add_datas([pico.get_value('PS2000A_CHANNEL_A'), pico.get_value(
+            'PS2000A_CHANNEL_B'), pico.get_value('PS2000A_CHANNEL_C')])
+        log_values([datetime.datetime.now().strftime("%H:%M:%S"), pico.get_value('PS2000A_CHANNEL_A'), pico.get_value(
+            'PS2000A_CHANNEL_B'), pico.get_value('PS2000A_CHANNEL_C')], int(settings.read_from_settings_file('fileSizeLimit')))
         freq = float(settings.read_from_settings_file('logFrequency'))
         time.sleep(freq)
 
@@ -45,7 +45,7 @@ def plotting(parent, title, num_of_lines, legend_labels):
     Returns:
         None
     """
-    plot = realTimePlotting.RealTimePlot(
+    plot = PicoPlotter.RealTimePlot(
         parent, title, num_of_lines, legend_labels)
     data_thread = threading.Thread(target=update_data, args=(plot,))
     data_thread.start()
@@ -204,12 +204,13 @@ if __name__ == '__main__':
     
     # Plotting
     try:
-        open_pico()
+        pico.open_pico()
         listWidget_testBench = main_window.findChild(QtWidgets.QWidget, "listWidget_testBench")
-        plotting(listWidget_testBench, "Titre", 3, ["Channel A", "Channel B", "Channel C"])
+        channels = ['PS2000A_CHANNEL_A', 'PS2000A_CHANNEL_B', 'PS2000A_CHANNEL_C']
+        plotter = PicoPlotter(channels, "PicoScope", listWidget_testBench)
+        
     except Exception as e:
-        print("No pico device detected : "+str(e))
+        print("Error : "+str(e))
         
     main_window.show()
     sys.exit(app.exec())
-# Développé avec ❤️ par : www.noasecond.com.

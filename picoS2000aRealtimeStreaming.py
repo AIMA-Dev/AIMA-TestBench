@@ -10,6 +10,18 @@ chandle = ctypes.c_int16()
 channel_range = None
 maxADC = ctypes.c_int16()
 
+def close_pico():
+    """
+    Closes the PicoScope device.
+
+    This function closes the PicoScope device.
+
+    Returns:
+        None
+    """
+    global chandle
+    status = ps.ps2000aCloseUnit(chandle)
+    assert_pico_ok(status)
 
 def open_pico():
     """
