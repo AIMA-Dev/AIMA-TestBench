@@ -2,7 +2,7 @@ import os
 import re
 
 # Configurations des commentaires pour chaque type de fichier
-copyright_comment = "Développé avec ❤️ par : www.noasecond.com."
+copyright_comment = "Développé par Noa Second"
 
 comments = {
     '.php': "<!-- {} -->".format(copyright_comment),
@@ -65,4 +65,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Développé avec ❤️ par : www.noasecond.com.
+# Développé par Noa Second

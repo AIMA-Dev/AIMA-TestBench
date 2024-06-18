@@ -135,4 +135,4 @@ class PicoPlotter(QtWidgets.QMainWindow):
         self.data_fetcher.stop()
         self.data_fetcher.wait()
         event.accept()
-# Développé avec ❤️ par : www.noasecond.com.
+# Développé par Noa Second

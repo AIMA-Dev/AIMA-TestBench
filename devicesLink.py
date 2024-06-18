@@ -17,4 +17,4 @@ def list_all_devices():
     devices += get_pico_list()
 
     return devices
-# Développé avec ❤️ par : www.noasecond.com.
+# Développé par Noa Second

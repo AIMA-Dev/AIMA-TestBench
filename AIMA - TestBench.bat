@@ -23,4 +23,4 @@ start /b python main.py
 echo [AIMA - TestBench] Done!
 
 @pause
-:: Développé avec ❤️ par : www.noasecond.com.
+:: Développé par Noa Second
