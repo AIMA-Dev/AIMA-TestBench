@@ -96,4 +96,4 @@ class Settings:
                     if s == setting:
                         return True
         return False
-# Développé par Noa Second
+# © AIMA DEVELOPPEMENT 2024

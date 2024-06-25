@@ -2,7 +2,7 @@ import os
 import re
 
 # Configurations des commentaires pour chaque type de fichier
-copyright_comment = "Développé par Noa Second"
+copyright_comment = "© AIMA DEVELOPPEMENT 2024"
 
 comments = {
     '.php': "<!-- {} -->".format(copyright_comment),
@@ -65,4 +65,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Développé par Noa Second
+# © AIMA DEVELOPPEMENT 2024

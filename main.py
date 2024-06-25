@@ -169,4 +169,4 @@ if __name__ == '__main__':
         
     main_window.show()
     sys.exit(app.exec())
-# Développé par Noa Second
+# © AIMA DEVELOPPEMENT 2024
